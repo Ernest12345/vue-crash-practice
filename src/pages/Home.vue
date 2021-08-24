@@ -1,5 +1,5 @@
 <template>
-  <div class="home container all-center">
+  <div class="home container">
     <TodosForm/>
     <TodoList/>
   </div>
@@ -18,6 +18,7 @@ export default {
 .home{
   display: flex;
   flex-direction: column;
-  min-height: 400px;
+  align-items: center;
+  min-height: 100vh;
 }
 </style>

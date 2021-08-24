@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent="handleSubmit" class="posts-form">
-    <input type="text" v-model="title" class="posts-form__input">
+    <input type="text" v-model="todo.title" name="addTodo" autocomplete="off" class="posts-form__input">
     <button type="submit" class="posts-form__btn">
       Add
     </button>
@@ -9,13 +9,20 @@
 <script>
 export default {
   data: () => ({
-    id: Date.now(),
-    title: ''
+    todo: {
+      id: Date.now(),
+      title: '',
+      completed: false
+    }
   }),
   methods: {
     handleSubmit () {
-      console.log(this.id)
-      console.log(this.title)
+      this.$store.commit('addTodo', this.todo)
+      this.todo = {
+        id: Date.now(),
+        title: '',
+        completed: false
+      }
     }
   }
 }
@@ -24,9 +31,11 @@ export default {
 .posts-form{
   display: flex;
   align-items: center;
+  margin-top: 100px;
   &__input{
     height: 30px;
-    width: 220px;
+    width: 260px;
+    padding: 0 10px;
   }
   &__btn{
    padding: 10px 15px;

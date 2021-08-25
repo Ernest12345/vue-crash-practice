@@ -1,5 +1,5 @@
 <template>
-  <ul class="todo-list" v-if="allTodos.length">
+  <ul class="todo-list" v-if="allTodos.length && !isTodosLoading">
     <transition-group name="todo-list">
     <TodoItem
       v-for="(todo,index) of allTodos"
@@ -9,18 +9,25 @@
     />
     </transition-group>
   </ul>
-  <h2 class="todo-list__empty" v-else>
+  <h3 class="todo-list__loading" v-else-if="isTodosLoading"> Loading...</h3>
+  <h3 class="todo-list__empty" v-else>
     No todos
-  </h2>
+  </h3>
 </template>
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import TodoItem from './TodoItem'
 
 export default {
   name: 'todoList',
   components: { TodoItem },
-  computed: mapGetters(['allTodos'])
+  computed: mapGetters(['allTodos', 'isTodosLoading']),
+  methods: {
+    ...mapActions(['getTodosAsync'])
+  },
+  mounted () {
+    this.getTodosAsync()
+  }
 }
 </script>
 
@@ -28,7 +35,7 @@ export default {
 .todo-list{
   margin-top: 20px;
   width: 340px;
-  &__empty{
+  &__empty,&__loading{
     margin-top: 20px;
    }
 }

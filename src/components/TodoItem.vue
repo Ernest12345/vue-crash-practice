@@ -23,6 +23,7 @@
 </template>
 <script>
 import { mapMutations } from 'vuex'
+import { DELETE_TODO, EDIT_TODO, TOGGLE_TODO } from '../store/modules/Todos/types.'
 export default {
   props: {
     todo: {
@@ -37,16 +38,16 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['deleteTodo', 'toggleTodo', 'editTodo']),
+    ...mapMutations([DELETE_TODO, TOGGLE_TODO, EDIT_TODO]),
 
     handleDelete (todoId) {
-      this.deleteTodo(todoId)
+      this.DELETE_TODO(todoId)
     },
     handleToggle (todoId) {
-      this.toggleTodo(todoId)
+      this.TOGGLE_TODO(todoId)
     },
     handleEdit (todoId, editedTodo) {
-      this.editTodo({ todoId, editedTodo })
+      this.EDIT_TODO({ todoId, editedTodo })
     }
   }
 }

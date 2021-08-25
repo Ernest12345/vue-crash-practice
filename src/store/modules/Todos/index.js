@@ -1,32 +1,14 @@
 import todosMutations from './mutations'
+import todosGetters from './getters'
+import todosActions from './actions'
 
 export const todosModules = {
   state: {
-    todos: [
-      {
-        userId: 1,
-        id: 1,
-        title: 'delectus aut autem',
-        completed: false
-      },
-      {
-        userId: 1,
-        id: 2,
-        title: 'quis ut nam facilis et officia qui',
-        completed: false
-      }
-    ],
+    todos: [],
     isLoading: false,
     error: null
   },
+  actions: todosActions,
   mutations: todosMutations,
-  actions: {},
-  getters: {
-    allTodos: (state) => {
-      return state.todos
-    },
-    isTodosLoading: (state) => {
-      return state.isLoading
-    }
-  }
+  getters: todosGetters
 }

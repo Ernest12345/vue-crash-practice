@@ -1,11 +1,20 @@
+import {
+  ADD_TODO,
+  DELETE_TODO,
+  EDIT_TODO,
+  SET_ERROR,
+  SET_LOADING,
+  TOGGLE_TODO
+} from './types.'
+
 export default {
-  addTodo: (state, todo) => {
-    state.todos.push(todo)
+  [ADD_TODO]: (state, todo) => {
+    state.todos = [...state.todos, ...todo]
   },
-  deleteTodo: (state, todoId) => {
+  [DELETE_TODO]: (state, todoId) => {
     state.todos = state.todos.filter(todo => todo.id !== todoId)
   },
-  toggleTodo: (state, todoId) => {
+  [TOGGLE_TODO]: (state, todoId) => {
     state.todos = state.todos.map(todo => {
       if (todo.id === todoId) {
         todo.completed = !todo.completed
@@ -13,13 +22,18 @@ export default {
       return todo
     })
   },
-  editTodo: (state, payload) => {
-    console.log(payload)
+  [EDIT_TODO]: (state, payload) => {
     state.todos = state.todos.map(todo => {
       if (todo.id === payload.todoId) {
         todo.title = payload.editedTodo
       }
       return todo
     })
+  },
+  [SET_LOADING]: (state, loading) => {
+    state.isLoading = loading
+  },
+  [SET_ERROR]: (state, error) => {
+    state.error = error
   }
 }

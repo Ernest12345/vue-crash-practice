@@ -7,6 +7,9 @@
   </form>
 </template>
 <script>
+import { mapMutations } from 'vuex'
+import { ADD_TODO } from '../store/modules/Todos/types.'
+
 export default {
   data: () => ({
     todo: {
@@ -16,12 +19,15 @@ export default {
     }
   }),
   methods: {
+    ...mapMutations([ADD_TODO]),
     handleSubmit () {
-      this.$store.commit('addTodo', this.todo)
-      this.todo = {
-        id: Date.now(),
-        title: '',
-        completed: false
+      if (this.todo.title) {
+        this.ADD_TODO([this.todo])
+        this.todo = {
+          id: Date.now(),
+          title: '',
+          completed: false
+        }
       }
     }
   }
